@@ -15,7 +15,20 @@ public class User {
 
     public String userName;
     public String userType;
-    public int pin;
+    private String Password;
+    private String confirmPass;
+    public void setpassword(String Password){
+        this.Password= Password;
+    }
+    public String getpassword(){
+        return Password;
+    }
+    public void setconfirmPass(String confirmPass){
+        this.confirmPass=confirmPass;
+    }
+    public String getconfirmPass(){
+        return confirmPass;
+    }
    
     
     
@@ -46,61 +59,52 @@ public class User {
     
      public void signUp()
      {
-    Scanner userInput1 = new Scanner(System.in);
-    System.out.println("Enter user name: ");
-    userName = userInput1.next();
-    System.out.println("Enter type(Admin-Cashier-Customer): ");
-    userType = userInput1.next();
-    System.out.println("Enter pin:");
-    pin = userInput1.nextInt();
-
-    try 
-    {
-        FileWriter writeToUserData1 = new FileWriter("userData.txt", true);
-        writeToUserData1.write(userName + " " + userType + " " + pin + "\n");
-        writeToUserData1.close();
-    } 
-    catch (IOException e) 
-    {
-        System.out.println("Error in file" + e);
-    }
-
-}
-     private boolean checkUserData(String userName, String userType, int pin) 
-     {
-    try (Scanner userDataFileLooper = new Scanner(new File("userData.txt"))) 
-    {
-        while (userDataFileLooper.hasNextLine()) 
-        {
-            String line = userDataFileLooper.nextLine();
-            String[] userData = line.split(" ");
-
-            if (userData.length == 3) 
-            { 
-                String storedUsername = userData[0];
-                String storedUserType = userData[1];
-                int storedPin;
-                try
-                {
-                    storedPin = Integer.parseInt(userData[2]);
-                } catch (NumberFormatException e) 
-                {
-                    System.out.println("Error parsing pin from file: " + e);
-                    continue; 
-                }
-
-                if (userName.equals(storedUsername) && userType.equals(storedUserType) && pin == storedPin) 
-                {
-                    return true;
-                }
+   
+         Scanner input = new Scanner(System.in);
+         System.out.println("Enter your Usermane: ");
+         userName=input.next();
+         System.out.println("Enter your password: ");
+         setpassword(input.next());
+         System.out.println("Confirm password: ");
+         setconfirmPass(input.next());
+         System.out.println("Register as: 1) Admin 2) Casheir 3) Customer ");
+         userType=input.next();
+         
+         if(getpassword().equals(getconfirmPass())){ 
+          File file=new File("userInfo.txt");
+          Scanner readFile = new Scanner(file);
+          boolean checkUsername=false;
+           while (readFile.hasNext()) {
+            final String lineFromFile = readFile.nextLine();
+            if (lineFromFile.equals(userName)) {
+                //found a match
+                System.out.println("Username already registered" );
+                checkUsername=true;
+                break;
             }
-        }
-    } catch (FileNotFoundException e) 
-    {
-        System.out.println("Can't open userData file." + e);
+            readFile.close();
+           }
+           if(checkUsername==false){
+               try{
+                   PrintWriter writeToFile=new PrintWriter(file);
+                   writeToFile.write(userName);
+                   writeToFile.write(getpassword());
+                   writeToFile.write(userType);
+                   System.out.println("Registered Successfully");
+                   writeToFile.close();
+               }
+               catch(FileNotFoundException e){
+                   System.out.println(e);
+               }
+           }
+         } 
+         else {
+         System.out.println("Confirmation doesn't match password, try again ");
+         signUp(); 
+         }
     }
-    return false;
 }
+         
 
      
     public void logIn()
