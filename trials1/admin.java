@@ -45,20 +45,17 @@ public void createProductFile(String filename) {
     public void removeProduct() {
         // Add code to remove a product from the file
     }
-
+//return product details
     public void searchProduct() {
         // Add code to search for a product in the file
     }
 
-    // Methods for managing users (overriding signUp method from the User class)
-    @Override
-    public void signUp() {//as an admin and
-        // allow the admin to create users
-        super.signUp(); // Call the signUp method from the parent class
-    }
+
 
     public boolean editUser(String searchUsername, String searchUserType, String newUsername, String newUserType, String newPassword) {
-    for (User user : userDataList) {
+   //remove parameters take it as an input inside the method
+        for (User user : userDataList) {
+        
         if (user.userName.equals(searchUsername) && user.userType.equals(searchUserType)) {
             user.userName = newUsername;
             user.userType = newUserType;
