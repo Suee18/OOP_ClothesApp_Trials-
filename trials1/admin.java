@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author mo
  */
 public class Admin extends User{
-    
+    Scanner input=new Scanner(System.in);
 
     public Admin() {
         // Constructor
@@ -52,14 +52,24 @@ public void createProductFile(String filename) {
 
 
 
-    public boolean editUser(String searchUsername, String searchUserType, String newUsername, String newUserType, String newPassword) {
+    public boolean editUser() {
+        System.out.println("enter the username");
+        String searchUsername=input.next();
+        System.out.println("enter the user type");
+        String searchUserType=input.next();
+        System.out.println("enter the new username");
+        String newUsername=input.next();
+        System.out.println("enter the new user type");
+        String newUserType=input.next();
+        System.out.println("enter the new password");
+        String newPassword=input.next();
    //remove parameters take it as an input inside the method
         for (User user : userDataList) {
         
         if (user.userName.equals(searchUsername) && user.userType.equals(searchUserType)) {
             user.userName = newUsername;
             user.userType = newUserType;
-            user.setpassword(newPassword);
+            user.setPassword(newPassword);
             return true; // Return true to indicate successful edit
         }
     }
@@ -67,7 +77,11 @@ public void createProductFile(String filename) {
 }
 
 
-  public boolean removeUser(String removeUsername, String removeUserType) {
+  public boolean removeUser() {
+      System.out.println("enter the username");
+      String removeUsername=input.next();
+      System.out.println("enter the user type");
+      String removeUserType=input.next();
     for (int i = 0; i < userDataList.size(); i++) {
         User user = userDataList.get(i);
         if (user.userName.equals(removeUsername) && user.userType.equals(removeUserType)) {
@@ -79,7 +93,11 @@ public void createProductFile(String filename) {
 }
 
 
-    public User searchUser(String searchUsername, String searchUserType) {
+    public User searchUser() {
+        System.out.println("enter the username");
+        String searchUsername=input.next();
+        System.out.println("enter the user type");
+        String searchUserType=input.next();
     for (User user : userDataList) {
         if (user.userName.equals(searchUsername) && user.userType.equals(searchUserType)) {
             return user; // Return the user if found
@@ -108,6 +126,4 @@ public void createProductFile(String filename) {
             System.out.println("Can't open userData file." + e);
         }
     }
-}
-
 }
