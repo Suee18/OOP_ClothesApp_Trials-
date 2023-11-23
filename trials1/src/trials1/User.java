@@ -5,6 +5,8 @@
 
 package trials1;
 
+
+package JavaApplication3;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -22,7 +24,7 @@ public class User
     
 
     public String userName;
-    private String userType;
+    public String userType;
     private String Password;
     private String confirmPass;
     public String filepath= "userData.txt";
@@ -183,8 +185,8 @@ public class User
     //}
 
     //}
-  
-}    
+    }
+}
     
 
 
