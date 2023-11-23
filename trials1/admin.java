@@ -52,7 +52,8 @@ public void createProductFile(String filename) {
 
 
 
-    public boolean editUser() {
+      public boolean editUser() {
+        Scanner input = new Scanner(System.in);
         System.out.println("enter the username");
         String searchUsername=input.next();
         System.out.println("enter the user type");
@@ -63,13 +64,14 @@ public void createProductFile(String filename) {
         String newUserType=input.next();
         System.out.println("enter the new password");
         String newPassword=input.next();
-   //remove parameters take it as an input inside the method
-        for (User user : userDataList) {
+
+        for (User user : userDataList) 
+        {
         
-        if (user.userName.equals(searchUsername) && user.userType.equals(searchUserType)) {
-            user.userName = newUsername;
+        if (user.userName.equals(searchUsername) && user.getUserType().equals(searchUserType)) {
+             user.userName = newUsername;
             user.userType = newUserType;
-            user.setPassword(newPassword);
+            user.setpassword(newPassword);
             return true; // Return true to indicate successful edit
         }
     }
@@ -78,13 +80,16 @@ public void createProductFile(String filename) {
 
 
   public boolean removeUser() {
+      Scanner input2 = new Scanner(System.in);
       System.out.println("enter the username");
-      String removeUsername=input.next();
+      String removeUsername=input2.next();
       System.out.println("enter the user type");
-      String removeUserType=input.next();
+      String removeUserType=input2.next();
+      
     for (int i = 0; i < userDataList.size(); i++) {
         User user = userDataList.get(i);
-        if (user.userName.equals(removeUsername) && user.userType.equals(removeUserType)) {
+        if (user.getUserName().equals(removeUsername) && user.getUserType().equals(removeUserType)) 
+        {
             userDataList.remove(i); // Remove the user
             return true; // Return successful removal
         }
@@ -93,37 +98,21 @@ public void createProductFile(String filename) {
 }
 
 
-    public User searchUser() {
+    public User searchUser()
+    {
+        Scanner input3 = new Scanner(System.in);
         System.out.println("enter the username");
-        String searchUsername=input.next();
+        String searchUsername=input3.next();
         System.out.println("enter the user type");
-        String searchUserType=input.next();
-    for (User user : userDataList) {
-        if (user.userName.equals(searchUsername) && user.userType.equals(searchUserType)) {
+        String searchUserType=input3.next();
+    for (User user : userDataList)
+    {
+        if (user.getUserName().equals(searchUsername) && user.getUserType().equals(searchUserType))
+        {
             return user; // Return the user if found
         }
     }
     return null; // Return null if not found
 }
-  
-    public void loadUserDataFromFile() {
-        try (Scanner userDataFileLooper = new Scanner(new File("userData.txt"))) {
-            while (userDataFileLooper.hasNextLine()) {
-                String line = userDataFileLooper.nextLine();
-                String[] userDataArray = line.split(" ");
 
-                if (userDataArray.length == 3) {
-                    String storedUsername = userDataArray[0];
-                    String storedUserType = userDataArray[1];
-                    String storedPassword = userDataArray[2];
-
-                    // Create a User instance and add it to the userDataList
-                    User userData = new User(storedUsername, storedUserType, storedPassword);
-                    userDataList.add(userData);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Can't open userData file." + e);
-        }
-    }
 }
