@@ -1,38 +1,148 @@
-import JavaApplication3.User;
-import java.io.*;
-import java.util.Scanner;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package project.trials;
+import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  *
- * @author mo
+ * @author sue changes:
+ * 
+ * getters to access Private members  (not the variables directly)
+ * 
  */
-public class Admin extends User{
-    Scanner input=new Scanner(System.in);
 
-    public Admin() {
-        // Constructor
+public class Admin extends User
+{
+    
+    public String adminUserName;
+    public String adminUserType;
+    private String adminPassword;
+    private String confirmPass;
+    public  ArrayList<Admin> adminDataList = new ArrayList<>();
+    public String adminFileName= "adminData.txt";   
+    public String productsFileName= "productsData.txt";
+
+    Admin() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-public void createProductFile(String filename) {
-        File productFile = new File(filename);
 
-        if (productFile.exists()) {
-            System.out.println("File already exists for products.");
-        } else {
-            try {
-                if (productFile.createNewFile()) {
-                    System.out.println("Product file created successfully!");
+    
+
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+
+    public String getConfirmPass() {
+        return confirmPass;
+    }
+
+    public void setConfirmPass(String confirmPass) {
+        this.confirmPass = confirmPass;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+   
+    public Admin ( String adminUserName,String adminUserType, String adminPassword)
+    {
+    }
+    
+    
+    @Override
+    public void createFile()
+    {
+           try
+           {
+             File userDataFile=new File (adminFileName);
+             if(userDataFile.createNewFile())
+             {
+             System.out.println("File created succefully!");
+             
+             }
+             else 
+             {
+               System.out.println("File already exists");             
+             }
+         }
+         catch(IOException e)
+         {
+         System.out.println("File is not created"+e.getMessage());
+         }
+    }
+   
+    
+    @Override
+    public void readFromFile() 
+    {
+
+         try (BufferedReader reader = new BufferedReader(new FileReader(adminFileName)))
+         {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+
+                if (parts.length == 3) {
+                    String userName1 = parts[0];
+                    String userType1 = parts[1];
+                    String password1= parts[2];
+                      
+                    // Create a new User object and add it to  userDataList(arraylist)
+                    Admin currentAdmin = new Admin(userName1, userType1, password1);
+                    adminDataList.add(currentAdmin);
                 } else {
-                    System.out.println("File creation failed.");
+                    System.out.println("Invalid data format in the file.");
                 }
-            } catch (IOException e) {
-                System.out.println("An error occurred: " + e.getMessage());
             }
+
+            System.out.println("User data read from file into arraylist successfully.");
+        } catch (IOException e) {
+            System.out.println("Error reading from file: " + e);
+        }    }
+    
+
+    @Override
+    public void writeToFile()
+    {
+
+       try (FileWriter writer = new FileWriter (adminFileName))
+       {
+           //looping through the  arraylist 
+        for (Admin a : adminDataList) 
+        {
+            //writing its contents on a file
+            writer.write(a.adminUserName+" "+a.adminUserType+" "+a.getAdminPassword()+"\n");
+
         }
+        System.out.println("User data saved to file successfully.");
+    } catch (IOException e)
+    {
+       System.out.println(e);
     }
+    }
+    
+    
+    
+    
+    
+    
+  
+
+  
+
+
     // Methods for managing products
     public void addProduct() {
         // Add code to add a product to the file
@@ -52,7 +162,7 @@ public void createProductFile(String filename) {
 
 
 
-      public boolean editUser() {
+    public boolean editUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("enter the username");
         String searchUsername=input.next();
@@ -65,7 +175,7 @@ public void createProductFile(String filename) {
         System.out.println("enter the new password");
         String newPassword=input.next();
 
-        for (User user : userDataList) 
+        for (User user : adminDataList) 
         {
         
         if (user.userName.equals(searchUsername) && user.getUserType().equals(searchUserType)) {
@@ -109,10 +219,14 @@ public void createProductFile(String filename) {
     {
         if (user.getUserName().equals(searchUsername) && user.getUserType().equals(searchUserType))
         {
-            return user; // Return the user if found
+            return user; // Return object user if found
         }
     }
-    return null; // Return null if not found
+    return null; // Return 0 if not found
 }
 
+    void addUser() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+
