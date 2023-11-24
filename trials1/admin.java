@@ -244,9 +244,23 @@ public class Admin extends User
     return null; // Return 0 if not found
 }
 
-    void addUser() 
-    {
-    }
+   void addUser() {
+        Scanner input7=new Scanner(System.in);
+        System.out.println("enter the username:");
+        String username=input7.next();
+        
+        System.out.println("enter the user type");
+        String usertype=input7.next();
+       
+        System.out.println("enter the user password");
+        String password=input7.next();
+        if(usertype.equalsIgnoreCase("Admin")){
+            Admin a=new Admin(username,usertype,password);
+            adminDataList.add(a);
+        }
+        //else if cashier
+        //else if customer
+        }
     
     
     @Override
