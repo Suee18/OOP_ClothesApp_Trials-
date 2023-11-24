@@ -26,10 +26,16 @@ public class Admin extends User
     public String adminFileName= "adminData.txt";   
     public String productsFileName= "productsData.txt";
 
-    Admin() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    Admin() 
+    {
     }
 
+     public Admin ( String adminUserName,String adminUserType, String adminPassword)
+    {
+        this.adminUserName=adminUserName;
+        this.adminUserType=adminUserType;
+        this.adminPassword=adminPassword;
+    }
     
 
     public String getAdminPassword() {
@@ -49,17 +55,8 @@ public class Admin extends User
     }
 
     
-    
-    
-    
-    
-    
-    
    
-    public Admin ( String adminUserName,String adminUserType, String adminPassword)
-    {
-    }
-    
+  
     
     @Override
     public void createFile()
@@ -112,12 +109,12 @@ public class Admin extends User
             System.out.println("Error reading from file: " + e);
         }    }
     
-
-    @Override
+@Override
     public void writeToFile()
+
     {
 
-       try (FileWriter writer = new FileWriter (adminFileName))
+       try (FileWriter writer = new FileWriter ("adminData.txt"))
        {
            //looping through the  arraylist 
         for (Admin a : adminDataList) 
@@ -225,8 +222,63 @@ public class Admin extends User
     return null; // Return 0 if not found
 }
 
-    void addUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    void addUser() 
+    {
     }
+    
+    
+    @Override
+      public boolean checkUserData(String userName,String userType1,String password)
+    {
+        
+        if ("admin".equals(userType1))
+        { for (Admin admin : adminDataList) 
+        {
+        if (admin.adminUserName.equals(userName) && admin.adminUserType.equals(userType) && admin.getAdminPassword().equals(password)) {
+            return true; // User data found in the list
+        }
+        }
+    }
+    return false; // User data not found in the list
+
+    }
+
+    @Override
+    public boolean logIn() 
+ {
+    Scanner userInput2 = new Scanner(System.in);
+    System.out.println("Enter user name: ");
+     adminUserName= userInput2.next();
+    System.out.println("Enter user type: ");
+     adminUserType = userInput2.next();
+    System.out.println("Enter password: ");
+    setAdminPassword( userInput2.next());
+    return checkUserData(adminUserName,adminUserType,getAdminPassword());
+    }    
+
+    @Override
+    public void signUp() 
+    
+        {
+     Scanner userInput3 = new Scanner(System.in);
+    System.out.println("Enter user name: ");
+    String adminUserName1= userInput3.next();
+    System.out.println("Enter user type: ");
+    String adminUserType1 = userInput3.next();
+    System.out.println("Enter password: ");
+    setAdminPassword( userInput3.next());
+    Admin CurrentAdmin =new Admin(adminUserName1, adminUserType1, getAdminPassword());
+    adminDataList.add(CurrentAdmin);
+
+    System.out.println("Registred successfully!");
+    
+    }
+ 
+     
+        
+    
+      
+      
+      
 }
 
