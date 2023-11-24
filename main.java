@@ -27,13 +27,13 @@ public class ProjectTrials
                            -Managing user-
                            (1)Add user
                            (2)Remove user
-                           (3)searchfor user
-                           (4)edit exisiting user
+                           (3)search for user
+                           (4)edit existing user
                            -Managing Products-
                            (5)Add product
                            (6)Remove product
-                           (7)search for product
-                           (8)edit exisiting product
+                           (7)Search for product
+                           (8)edit existing product
                             Press ZERO to terminate.
                            """);
          Achoice=AInput.nextInt();
@@ -78,7 +78,7 @@ public class ProjectTrials
                    int count=0;
                    int choice1, choice2;
 
-        //Files creation and objects intialization
+        //Files creation and objects initialization
          ProjectTrials trial= new ProjectTrials();
 
            Admin adminObj = new Admin();
@@ -170,6 +170,8 @@ public class ProjectTrials
                     {
                         System.out.println("Logged in successfully\nMain menu");
                         // CASHIER MAIN MENU:  trial.CashierMainMenu(cashierObj);
+                       //save array list to file before ending here
+
                         break;
                     } else 
                     {
@@ -181,7 +183,9 @@ public class ProjectTrials
                 } else if (choice2 == 2) {
                     if (cashierObj.logIn()) {
                         System.out.println("Logged in successfully\nMain menu");
-                        // trial.AdminMainMenu(adminObj);
+                        // CASHIER MAIN MENU:  trial.CashierMainMenu(cashierObj);
+                      //save array list to file before ending here
+
                         break;
                     } else {
                         count++;
@@ -216,8 +220,9 @@ public class ProjectTrials
 
                     if (customerObj.logIn()) {
                         System.out.println("Logged in successfully\nMain menu");
-
                         // Customer MAIN MENU
+                       //save array list to file before ending here
+                      //waiting for customer class to be implemented
                         break;
                     } else {
                         count++;
@@ -230,6 +235,7 @@ public class ProjectTrials
                     {
                         System.out.println("Logged in successfully\nMain menu");
                         // Customer MAIN MENU 
+                        //save array list to file before ending here
                         //waiting for customer class to be implemented
                         break;
                     } else 
