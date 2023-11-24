@@ -15,27 +15,30 @@ import java.util.ArrayList;
  *
  * @author SUE
  */
-public class Products 
-        
-{
-public String productName;
+public class product{
+    public String productName;
 public String PID;
 
     String productsFileName="productsData.txt";
-    public  ArrayList<Products> productsDataList = new ArrayList<>();
+    static public  ArrayList<product> productsDataList = new ArrayList<>();
 
-    public Products(String productName,String PID) {
-        this.productName=productName;    
-        this.PID=PID;
-
-    }
-
-    Products() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-   
     
+
+    public product(String pname,String Pid) {
+        this.productName=pname;
+        this.PID=Pid;
+    }
+// Method to add a product to the list
+    static public void addProduct(product product) {
+        productsDataList.add(product);
+    }
+static public void setproductlist(ArrayList<product> b){
+productsDataList=b;
+}
+    // Method to get the products list
+    static public ArrayList<product> getProductsDataList() {
+        return productsDataList;
+    }
     
      //@Override 
   public void createProductFile() 
@@ -72,7 +75,7 @@ public String PID;
                     String Id = parts[1];
                       
                     // Create a new User object and add it to  userDataList(arraylist)
-                    Products product = new Products(name,Id);
+                    product product = new product(name,Id);
                     productsDataList.add(product);
                 } else 
                 {
@@ -92,7 +95,7 @@ public String PID;
        try (FileWriter writer = new FileWriter (productName))
        {
            //looping through the  arraylist 
-        for (Products p : productsDataList) 
+        for (product p : productsDataList) 
         {
             //writing its contents on a file
             writer.write(p.productName+" "+p.PID+"\n");
