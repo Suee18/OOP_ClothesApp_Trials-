@@ -159,7 +159,7 @@ public class Admin extends User
 
 
 
-    public boolean editUser() {
+   public boolean editUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("enter the username");
         String searchUsername=input.next();
@@ -171,54 +171,76 @@ public class Admin extends User
         String newUserType=input.next();
         System.out.println("enter the new password");
         String newPassword=input.next();
-
-        for (User user : adminDataList) 
-        {
-        
-        if (user.userName.equals(searchUsername) && user.getUserType().equals(searchUserType)) {
-             user.userName = newUsername;
-            user.userType = newUserType;
-            user.setpassword(newPassword);
+        if(searchUserType.equalsIgnoreCase("Admin")){
+        for(Admin admin:adminDataList){
+        if (this.userName.equalsIgnoreCase(searchUsername)) {
+            this.userName=newUsername;
+            this.userType=newUserType;
+            this.setPassword(newPassword);
+            this.setConfirmPass(newPassword);
             return true; // Return true to indicate successful edit
         }
+        }
+        }
+//        else if(searchUserType.equalsIgnoreCase("cashier")){
+//        for(Cashier a:Cashierdatalist){
+//        if (this.userName.equalsIgnoreCase(searchUsername)) {
+//            this.userName=newUsername;
+//            this.userType=newUserType;
+//            return true; // Return true to indicate successful edit
+//        }
+//        else if(searchUserType.equalsIgnoreCase("customer")){
+//        for(Customer a:CustomerdataList){
+//        if (this.userName.equalsIgnoreCase(searchUsername)) {
+//            this.userName=newUsername;
+//            this.userType=newUserType;
+//            return true; // Return true to indicate successful edit
+//        }
+        
+        return false; // Return false if user not found
     }
-    return false; // Return false if user not found
-}
 
 
-  public boolean removeUser() {
+ public boolean removeUser() {
       Scanner input2 = new Scanner(System.in);
       System.out.println("enter the username");
       String removeUsername=input2.next();
       System.out.println("enter the user type");
       String removeUserType=input2.next();
-      
-    for (int i = 0; i < userDataList.size(); i++) {
-        User user = userDataList.get(i);
-        if (user.getUserName().equals(removeUsername) && user.getUserType().equals(removeUserType)) 
-        {
-            userDataList.remove(i); // Remove the user
-            return true; // Return successful removal
-        }
-    }
+      //remove admin
+      if(removeUserType.equalsIgnoreCase("Admin")){
+      for(Admin a:adminDataList){
+      if(removeUsername.equalsIgnoreCase(removeUsername)){
+      adminDataList.remove(a);
+      return true;//user removed
+      }
+      }
+      }
+    //remove cashier
+    //remove customer
     return false; // Return false if user not found
 }
 
 
-    public User searchUser()
+   public Admin searchUser()
     {
         Scanner input3 = new Scanner(System.in);
         System.out.println("enter the username");
         String searchUsername=input3.next();
         System.out.println("enter the user type");
         String searchUserType=input3.next();
-    for (User user : userDataList)
+        //if admin
+        if(searchUserType.equalsIgnoreCase("Admin")){
+    for (Admin a :adminDataList )
     {
-        if (user.getUserName().equals(searchUsername) && user.getUserType().equals(searchUserType))
+        if (a.getUserName().equalsIgnoreCase(searchUsername))
         {
-            return user; // Return object user if found
+            return a; // Return object user if found
         }
     }
+        }
+        //if cashier
+        //if customer
     return null; // Return 0 if not found
 }
 
@@ -275,7 +297,30 @@ public class Admin extends User
     }
  
      
-        
+         @Override
+    public String getUserName() {
+        return this.userName;
+    }
+    @Override
+    public String getUserType() {
+        return this.adminUserType;
+    }
+    @Override
+    public void setPassword(String Password) {
+        this.adminPassword=Password;
+    }
+    @Override
+    public String getPassword() {
+       return this.adminPassword;
+    }
+    @Override
+    public void setconfirmPass(String confirmPass) {
+        this.confirmPass= confirmPass;
+    }
+    @Override
+    public String getconfirmPass() {
+       return this.confirmPass;
+    }
     
       
       
