@@ -21,7 +21,7 @@ public class Admin extends User
     public String adminUserName;
     public String adminUserType;
     private String adminPassword;
-    private String confirmPass;
+    private String adminConfirmPass;
     public  ArrayList<Admin> adminDataList = new ArrayList<>();
     public String adminFileName= "adminData.txt";   
     public String productsFileName= "productsData.txt";
@@ -46,12 +46,12 @@ public class Admin extends User
         this.adminPassword = adminPassword;
     }
 
-    public String getConfirmPass() {
-        return confirmPass;
+    public String getAdminConfirmPass() {
+        return adminConfirmPass;
     }
 
-    public void setConfirmPass(String confirmPass) {
-        this.confirmPass = confirmPass;
+    public void setAdminConfirmPass(String confirmPass) {
+        this.adminConfirmPass = confirmPass;
     }
 
     
@@ -134,12 +134,7 @@ public class Admin extends User
     
     
     
-    
-  
-
-  
-
-
+    //MOE
     // Methods for managing products
    public void addProducts() {
         Scanner input10=new Scanner(System.in);
@@ -147,8 +142,9 @@ public class Admin extends User
         String pname=input10.next();
         System.out.println("enter the product id");
         String pid=input10.next();
-        product a=new product(pname,pid);
-        a.addProduct(a);//adding the new product obj to the list
+        
+        Products a=new Products(pname,pid);
+        Products.productsDataList.add(a);//adding the new product obj to the list
         System.out.println("product added succesfully");
     }
 
@@ -159,13 +155,13 @@ public class Admin extends User
         System.out.println("enter the product id");
         String pid=input11.next();
         //creating a new list and add the original list to it to be accesible
-        ArrayList<product> productsnewlist = product.getProductsDataList(); 
-        for(product a:productsnewlist){
+        ArrayList<Products> productsnewlist = Products.getProductsDataList(); 
+        for(Products a:productsnewlist){
         if(a.productName.equals(pname)&&a.PID.equals(pid)){
         a.productName=pname;
         a.PID=pid;
         //setting the new list 
-        product.setproductlist(productsnewlist);
+        Products.setproductlist(productsnewlist);
             System.out.println("product edited succesfully");
             return;
         }
@@ -176,18 +172,18 @@ public class Admin extends User
 
    public void removeProducts() {
         Scanner input13=new Scanner(System.in);
-        ArrayList<product> productsnewlist = product.getProductsDataList(); 
+        ArrayList<Products> productsnewlist = Products.getProductsDataList(); 
         System.out.println("1)search by name    2)search by id");
         short num=input13.nextShort();
         if(num==1){
         System.out.println("enter the product name");
         String pname=input13.next();
-        for(product a:productsnewlist){
+        for(Products a:productsnewlist){
         if(a.productName.equals(pname)){
             System.out.println("product name:"+a.productName);
             System.out.println("product id:"+a.PID);
             productsnewlist.remove(a);
-            product.setproductlist(productsnewlist);
+            Products.setproductlist(productsnewlist);
             System.out.println("product removed succesfully");
             return;
         }
@@ -196,7 +192,7 @@ public class Admin extends User
         else if(num==2){
             System.out.println("enter the product id");
             String pid=input13.next();
-        for(product a:productsnewlist){
+        for(Products a:productsnewlist){
         if(a.PID.equals(pid)){
             System.out.println("product name:"+a.productName);
             System.out.println("product id:"+a.PID);
@@ -211,13 +207,13 @@ public class Admin extends User
 //return product details
     public void searchProducts() {
         Scanner input12=new Scanner(System.in);
-        ArrayList<product> productsnewlist = product.getProductsDataList(); 
+        ArrayList<Products> productsnewlist = Products.getProductsDataList(); 
         System.out.println("1)search by name    2)search by id");
         short num=input12.nextShort();
         if(num==1){
         System.out.println("enter the product name");
         String pname=input12.next();
-        for(product a:productsnewlist){
+        for(Products a:productsnewlist){
         if(a.productName.equals(pname)){
             System.out.println("product name:"+a.productName);
             System.out.println("product id:"+a.PID);
@@ -228,7 +224,7 @@ public class Admin extends User
         else if(num==2){
             System.out.println("enter the product id");
             String pid=input12.next();
-        for(product a:productsnewlist){
+        for(Products a:productsnewlist){
         if(a.PID.equals(pid)){
             System.out.println("product name:"+a.productName);
             System.out.println("product id:"+a.PID);
@@ -243,92 +239,8 @@ public class Admin extends User
 
 
 
-   public boolean editUser() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("enter the username");
-        String searchUsername=input.next();
-        System.out.println("enter the user type");
-        String searchUserType=input.next();
-        System.out.println("enter the new username");
-        String newUsername=input.next();
-        System.out.println("enter the new user type");
-        String newUserType=input.next();
-        System.out.println("enter the new password");
-        String newPassword=input.next();
-        if(searchUserType.equalsIgnoreCase("Admin")){
-        for(Admin admin:adminDataList){
-        if (this.userName.equalsIgnoreCase(searchUsername)) {
-            this.userName=newUsername;
-            this.userType=newUserType;
-            this.setPassword(newPassword);
-            this.setConfirmPass(newPassword);
-            return true; // Return true to indicate successful edit
-        }
-        }
-        }
-//        else if(searchUserType.equalsIgnoreCase("cashier")){
-//        for(Cashier a:Cashierdatalist){
-//        if (this.userName.equalsIgnoreCase(searchUsername)) {
-//            this.userName=newUsername;
-//            this.userType=newUserType;
-//            return true; // Return true to indicate successful edit
-//        }
-//        else if(searchUserType.equalsIgnoreCase("customer")){
-//        for(Customer a:CustomerdataList){
-//        if (this.userName.equalsIgnoreCase(searchUsername)) {
-//            this.userName=newUsername;
-//            this.userType=newUserType;
-//            return true; // Return true to indicate successful edit
-//        }
-        
-        return false; // Return false if user not found
-    }
-
-
- public boolean removeUser() {
-      Scanner input2 = new Scanner(System.in);
-      System.out.println("enter the username");
-      String removeUsername=input2.next();
-      System.out.println("enter the user type");
-      String removeUserType=input2.next();
-      //remove admin
-      if(removeUserType.equalsIgnoreCase("Admin")){
-      for(Admin a:adminDataList){
-      if(removeUsername.equalsIgnoreCase(removeUsername)){
-      adminDataList.remove(a);
-      return true;//user removed
-      }
-      }
-      }
-    //remove cashier
-    //remove customer
-    return false; // Return false if user not found
-}
-
-
-   public Admin searchUser()
-    {
-        Scanner input3 = new Scanner(System.in);
-        System.out.println("enter the username");
-        String searchUsername=input3.next();
-        System.out.println("enter the user type");
-        String searchUserType=input3.next();
-        //if admin
-        if(searchUserType.equalsIgnoreCase("Admin")){
-    for (Admin a :adminDataList )
-    {
-        if (a.getUserName().equalsIgnoreCase(searchUsername))
-        {
-            return a; // Return object user if found
-        }
-    }
-        }
-        //if cashier
-        //if customer
-    return null; // Return 0 if not found
-}
-
-   void addUser() {
+  void addUser()
+  {
         Scanner input7=new Scanner(System.in);
         System.out.println("enter the username:");
         String username=input7.next();
@@ -345,83 +257,149 @@ public class Admin extends User
         //else if cashier
         //else if customer
         }
-    
-    
-    @Override
-      public boolean checkUserData(String userName,String userType1,String password)
-    {
-        
-        if ("admin".equals(userType1))
-        { for (Admin admin : adminDataList) 
+
+    public boolean editUser() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("enter the username");
+        String searchUsername=input.next();
+        System.out.println("enter the user type");
+        String searchUserType=input.next();
+        System.out.println("enter the new username");
+        String newUsername=input.next();
+        System.out.println("enter the new user type");
+        String newUserType=input.next();
+        System.out.println("enter the new password");
+        String newPassword=input.next();
+
+        for (User user : adminDataList) 
         {
-        if (admin.adminUserName.equals(userName) && admin.adminUserType.equals(userType) && admin.getAdminPassword().equals(password)) {
-            return true; // User data found in the list
-        }
+        
+        if (user.userName.equals(searchUsername) && user.getUserType().equals(searchUserType)) {
+             user.userName = newUsername;
+            user.userType = newUserType;
+            user.setpassword(newPassword);
+            return true; // Return true to indicate successful edit
         }
     }
-    return false; // User data not found in the list
+    return false; // Return false if user not found
+}
 
+
+  public boolean removeUser() {
+      Scanner input2 = new Scanner(System.in);
+      System.out.println("enter the username");
+      String removeUsername=input2.next();
+      System.out.println("enter the user type");
+      String removeUserType=input2.next();
+      
+    for (int i = 0; i < userDataList.size(); i++) {
+        User user = userDataList.get(i);
+        if (user.getUserName().equals(removeUsername) && user.getUserType().equals(removeUserType)) 
+        {
+            userDataList.remove(i); // Remove the user
+            return true; // Return successful removal
+        }
     }
+    return false; // Return false if user not found
+}
 
+
+    public User searchUser()
+    {
+        Scanner input3 = new Scanner(System.in);
+        System.out.println("enter the username");
+        String searchUsername=input3.next();
+        System.out.println("enter the user type");
+        String searchUserType=input3.next();
+    for (User user : userDataList)
+    {
+        if (user.getUserName().equals(searchUsername) && user.getUserType().equals(searchUserType))
+        {
+            return user; // Return object user if found
+        }
+    }
+    return null; // Return 0 if not found
+}
+
+    
+   
     @Override
-    public boolean logIn() 
- {
+public boolean checkUserData(String userName, String userType, String password) {
+    for (Admin admin : adminDataList) {
+        if (admin.adminUserName.equals(userName) && admin.adminUserType.equals(userType) && admin.getAdminPassword().equals(password)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+//user name repetiotion in the same file 
+ @Override
+    public boolean checkUserName(String AuserName)
+    {
+            for (Admin admin1 : adminDataList) 
+            {
+               if( admin1.adminUserName.equals(AuserName))
+               return true;
+            }
+            return false;
+
+    }
+
+
+@Override
+public boolean logIn() 
+{
     Scanner userInput2 = new Scanner(System.in);
     System.out.println("Enter user name: ");
-     adminUserName= userInput2.next();
+    this.adminUserName = userInput2.next(); 
     System.out.println("Enter user type: ");
-     adminUserType = userInput2.next();
+    this.adminUserType = userInput2.next();  
     System.out.println("Enter password: ");
-    setAdminPassword( userInput2.next());
-    return checkUserData(adminUserName,adminUserType,getAdminPassword());
-    }    
+    setAdminPassword(userInput2.next()); 
+        return checkUserData(this.adminUserName, this.adminUserType, getAdminPassword());
+}
+@Override
+public void signUp()
+    {
+        Scanner userInput3 = new Scanner(System.in);
 
-    @Override
-    public void signUp() 
-    
-        {
-     Scanner userInput3 = new Scanner(System.in);
-    System.out.println("Enter user name: ");
-    String adminUserName1= userInput3.next();
-    System.out.println("Enter user type: ");
-    String adminUserType1 = userInput3.next();
-    System.out.println("Enter password: ");
-    setAdminPassword( userInput3.next());
-    Admin CurrentAdmin =new Admin(adminUserName1, adminUserType1, getAdminPassword());
-    adminDataList.add(CurrentAdmin);
+        while (true) {
+            System.out.println("Enter user name:");
+            adminUserName = userInput3.next();
 
-    System.out.println("Registred successfully!");
-    
+            if (checkUserName(adminUserName)) {
+                System.out.println("Already registered user name, try another one");
+            } else {
+                break; // Exit the loop if the user name is not already registered
+            }
+        }
+
+        System.out.println("Enter user type:");
+        adminUserType = userInput3.next();
+
+        System.out.println("Enter password:");
+        setAdminPassword(userInput3.next());
+
+        System.out.println("Confirm password: ");
+        setAdminConfirmPass(userInput3.next());
+
+        if (getAdminConfirmPass().equals(getAdminPassword())) {
+            Admin currentAdmin = new Admin(adminUserName, adminUserType, getAdminPassword());
+            adminDataList.add(currentAdmin);
+            System.out.println("Registered successfully!");
+        } else {
+            System.out.println("Confirmation doesn't match password, try again ");
+            signUp();
+        }
     }
- 
+
+
+   
      
-         @Override
-    public String getUserName() {
-        return this.userName;
-    }
-    @Override
-    public String getUserType() {
-        return this.adminUserType;
-    }
-    @Override
-    public void setPassword(String Password) {
-        this.adminPassword=Password;
-    }
-    @Override
-    public String getPassword() {
-       return this.adminPassword;
-    }
-    @Override
-    public void setconfirmPass(String confirmPass) {
-        this.confirmPass= confirmPass;
-    }
-    @Override
-    public String getconfirmPass() {
-       return this.confirmPass;
-    }
+       
     
-      
-      
-      
+    
 }
 
