@@ -141,20 +141,104 @@ public class Admin extends User
 
 
     // Methods for managing products
-    public void addProduct() {
-        // Add code to add a product to the file
+   public void addProducts() {
+        Scanner input10=new Scanner(System.in);
+        System.out.println("enter the product name");
+        String pname=input10.next();
+        System.out.println("enter the product id");
+        String pid=input10.next();
+        product a=new product(pname,pid);
+        a.addProduct(a);//adding the new product obj to the list
+        System.out.println("product added succesfully");
     }
 
-    public void editProduct() {
-        // Add code to edit a product in the file
+    public void editProducts() {
+        Scanner input11=new Scanner(System.in);
+        System.out.println("enter the product name");
+        String pname=input11.next();
+        System.out.println("enter the product id");
+        String pid=input11.next();
+        //creating a new list and add the original list to it to be accesible
+        ArrayList<product> productsnewlist = product.getProductsDataList(); 
+        for(product a:productsnewlist){
+        if(a.productName.equals(pname)&&a.PID.equals(pid)){
+        a.productName=pname;
+        a.PID=pid;
+        //setting the new list 
+        product.setproductlist(productsnewlist);
+            System.out.println("product edited succesfully");
+            return;
+        }
+        }
+        System.out.println("cant find the product");
+        return;
     }
 
-    public void removeProduct() {
-        // Add code to remove a product from the file
+   public void removeProducts() {
+        Scanner input13=new Scanner(System.in);
+        ArrayList<product> productsnewlist = product.getProductsDataList(); 
+        System.out.println("1)search by name    2)search by id");
+        short num=input13.nextShort();
+        if(num==1){
+        System.out.println("enter the product name");
+        String pname=input13.next();
+        for(product a:productsnewlist){
+        if(a.productName.equals(pname)){
+            System.out.println("product name:"+a.productName);
+            System.out.println("product id:"+a.PID);
+            productsnewlist.remove(a);
+            product.setproductlist(productsnewlist);
+            System.out.println("product removed succesfully");
+            return;
+        }
+        }
+        }
+        else if(num==2){
+            System.out.println("enter the product id");
+            String pid=input13.next();
+        for(product a:productsnewlist){
+        if(a.PID.equals(pid)){
+            System.out.println("product name:"+a.productName);
+            System.out.println("product id:"+a.PID);
+            return;
+        }
+        }
+            
+        }
+        System.out.println("cant find the product");
+        return;
     }
 //return product details
-    public void searchProduct() {
-        // Add code to search for a product in the file
+    public void searchProducts() {
+        Scanner input12=new Scanner(System.in);
+        ArrayList<product> productsnewlist = product.getProductsDataList(); 
+        System.out.println("1)search by name    2)search by id");
+        short num=input12.nextShort();
+        if(num==1){
+        System.out.println("enter the product name");
+        String pname=input12.next();
+        for(product a:productsnewlist){
+        if(a.productName.equals(pname)){
+            System.out.println("product name:"+a.productName);
+            System.out.println("product id:"+a.PID);
+            return;
+        }
+        }
+        }
+        else if(num==2){
+            System.out.println("enter the product id");
+            String pid=input12.next();
+        for(product a:productsnewlist){
+        if(a.PID.equals(pid)){
+            System.out.println("product name:"+a.productName);
+            System.out.println("product id:"+a.PID);
+            return;
+        }
+        }
+            
+        }
+        System.out.println("cant find the product");
+        return;
     }
 
 
