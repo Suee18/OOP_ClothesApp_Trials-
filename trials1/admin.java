@@ -258,32 +258,7 @@ public class Admin extends User
         //else if customer
         }
 
-    public boolean editUser() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("enter the username");
-        String searchUsername=input.next();
-        System.out.println("enter the user type");
-        String searchUserType=input.next();
-        System.out.println("enter the new username");
-        String newUsername=input.next();
-        System.out.println("enter the new user type");
-        String newUserType=input.next();
-        System.out.println("enter the new password");
-        String newPassword=input.next();
-
-        for (User user : adminDataList) 
-        {
-        
-        if (user.userName.equals(searchUsername) && user.getUserType().equals(searchUserType)) {
-             user.userName = newUsername;
-            user.userType = newUserType;
-            user.setpassword(newPassword);
-            return true; // Return true to indicate successful edit
-        }
-    }
-    return false; // Return false if user not found
-}
-
+   
 
   public boolean removeUser() {
       Scanner input2 = new Scanner(System.in);
@@ -303,6 +278,48 @@ public class Admin extends User
     return false; // Return false if user not found
 }
 
+
+
+     public boolean editUser() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("enter the username");
+        String searchUsername=input.next();
+        System.out.println("enter the user type");
+        String searchUserType=input.next();
+        System.out.println("enter the new username");
+        String newUsername=input.next();
+        System.out.println("enter the new user type");
+        String newUserType=input.next();
+        System.out.println("enter the new password");
+        String newPassword=input.next();
+        if(searchUserType.equalsIgnoreCase("Admin")){
+        for(Admin admin:adminDataList){
+        if (this.userName.equalsIgnoreCase(searchUsername)) {
+            this.userName=newUsername;
+            this.userType=newUserType;
+            this.setPassword(newPassword);
+            this.setConfirmPass(newPassword);
+            return true; // Return true to indicate successful edit
+        }
+        }
+        }
+        else if(searchUserType.equalsIgnoreCase("cashier")){
+        for(Cashier a:Cashierdatalist){
+        if (this.userName.equalsIgnoreCase(searchUsername)) {
+            this.userName=newUsername;
+            this.userType=newUserType;
+            return true; // Return true to indicate successful edit
+        }
+        else if(searchUserType.equalsIgnoreCase("customer")){
+        for(Customer a:CustomerdataList){
+        if (this.userName.equalsIgnoreCase(searchUsername)) {
+            this.userName=newUsername;
+            this.userType=newUserType;
+            return true; // Return true to indicate successful edit
+        }
+        
+        return false; // Return false if user not found
+    }
 
     public User searchUser()
     {
