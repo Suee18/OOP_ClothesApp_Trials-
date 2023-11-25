@@ -239,8 +239,7 @@ public class Admin extends User
 
 
 
-  void addUser()
-  {
+ void addUser() {
         Scanner input7=new Scanner(System.in);
         System.out.println("enter the username:");
         String username=input7.next();
@@ -255,9 +254,16 @@ public class Admin extends User
             adminDataList.add(a);
         }
         //else if cashier
+        else if(usertype.equalsIgnoreCase("Cashier")){
+            Cashier a=new Admin(username,usertype,password);
+            CashierDataList.add(a);
+       }
         //else if customer
-        }
-
+        else if(usertype.equalsIgnoreCase("Cashier")){
+            Cashier a=new Admin(username,usertype,password);
+            CashierDataList.add(a);
+       }
+    }
    
 //done
  public boolean removeUser() {
