@@ -339,23 +339,50 @@ public class Admin extends User
         return false; // Return false if user not found
     }
 
-    public User searchUser()
+   public void searchUser()
     {
         Scanner input3 = new Scanner(System.in);
         System.out.println("enter the username");
         String searchUsername=input3.next();
         System.out.println("enter the user type");
         String searchUserType=input3.next();
-    for (User user : userDataList)
+        //if admin
+        if(searchUserType.equalsIgnoreCase("Admin")){
+    for (Admin a :adminDataList )
     {
-        if (user.getUserName().equals(searchUsername) && user.getUserType().equals(searchUserType))
+        if (a.getUserName().equalsIgnoreCase(searchUsername))
         {
-            return user; // Return object user if found
+            System.out.println("admin is available in the list");
+            return;
         }
     }
-    return null; // Return 0 if not found
-}
-
+        }
+        //if cashier
+        else if(searchUserType.equalsIgnoreCase("Cashier")){
+    for (Cashier a :CashiersDataList)
+    {
+        if (a.getUserName().equalsIgnoreCase(searchUsername))
+        {
+            System.out.println("cashier is available in the list");
+            return;
+        }
+            
+        }
+    }
+        
+        //if customer
+        else if(searchUserType.equalsIgnoreCase("Customer")){
+    for (Customer a :CustomerDataList)
+    {
+        if (a.getUserName().equalsIgnoreCase(searchUsername))
+        {
+            System.out.println("customer is avaiable in the list");
+            return;
+        }
+            
+        }
+    }
+        }
     
    
     @Override
