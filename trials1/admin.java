@@ -259,22 +259,40 @@ public class Admin extends User
         }
 
    
-
-  public boolean removeUser() {
+//done
+ public boolean removeUser() {
       Scanner input2 = new Scanner(System.in);
       System.out.println("enter the username");
       String removeUsername=input2.next();
       System.out.println("enter the user type");
       String removeUserType=input2.next();
-      
-    for (int i = 0; i < userDataList.size(); i++) {
-        User user = userDataList.get(i);
-        if (user.getUserName().equals(removeUsername) && user.getUserType().equals(removeUserType)) 
-        {
-            userDataList.remove(i); // Remove the user
-            return true; // Return successful removal
-        }
-    }
+      //remove admin
+      if(removeUserType.equalsIgnoreCase("Admin")){
+      for(Admin a:adminDataList){
+      if(removeUsername.equalsIgnoreCase(removeUsername)){
+      adminDataList.remove(a);
+      return true;//user removed
+      }
+      }
+      }
+    //remove cashier
+      else if(removeUserType.equalsIgnoreCase("Cashier")){
+      for(Cashier a:CashiersDataList){
+      if(removeUsername.equalsIgnoreCase(removeUsername)){
+      CashiersDataList.remove(a);
+      return true;//user removed
+      }
+      }
+      }
+    //remove customer
+    else if(removeUserType.equalsIgnoreCase("Customer")){
+      for(Customer a:CustomerDataList){
+      if(removeUsername.equalsIgnoreCase(removeUsername)){
+      CustomerDataList.remove(a);
+      return true;//user removed
+      }
+      }
+      }
     return false; // Return false if user not found
 }
 
