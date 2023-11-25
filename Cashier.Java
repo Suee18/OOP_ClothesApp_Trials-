@@ -1,5 +1,6 @@
 
-package project.trials;
+package project;
+
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,17 +18,19 @@ import java.util.Scanner;
 
 /**
  *
- * @author Sue 
+ * @author Adoumy 
  */
 public class Cashier extends User
 {
     public String cashierUserName;
     public String CashierUserType;
+    public String CartFilePath = "Cart.txt" ;
     private String CashierPassword;   
     private String CashierConfirmPassword;
 
-    public ArrayList <Products> cartProducts; //retrieve from Class product
+    public ArrayList <product> cartProducts; //retrieve from Class product
     public ArrayList<Cashier> CashiersDataList; // Add cashiers should be in class admin 
+    public ArrayList<Cart> UserCart; 
     String cashierFileName="cashierData.txt";
 
     public String getCashierPassword() {
@@ -113,32 +117,26 @@ public class Cashier extends User
 
     @Override
     public void writeToFile() {
-        
 
-         try (BufferedReader reader = new BufferedReader(new FileReader(cashierFileName)))
-         {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" ");
+       try (FileWriter writer = new FileWriter ("adminData.txt"))
+       {
+           //looping through the  arraylist 
+        for (Cashier c: CashiersDataList) 
+        {
+            //writing its contents on a file
+            writer.write(c.cashierUserName+" "+c.CashierUserType+" "+c.getCashierPassword()+"\n");
 
-                if (parts.length == 3) {
-                    String userName1 = parts[0];
-                    String userType1 = parts[1];
-                    String password1= parts[2];
-                      
-                    // Create a new User object and add it to  userDataList(arraylist)
-                    Cashier currentCashier = new Cashier(userName1, userType1, password1);
-                    CashiersDataList.add(currentCashier);
-                } else {
-                    System.out.println("Invalid data format in the file.");
-                }
+        }
+        System.out.println("User data saved to file successfully.");
+    } catch (IOException e)
+    {
+       System.out.println(e);
+    
             }
-
-            System.out.println("User data read from file into arraylist successfully.");
-        } catch (IOException e) {
-            System.out.println("Error reading from file: " + e);
-        }   
     }
+
+         
+    
 
     
     @Override
@@ -153,7 +151,7 @@ public boolean checkUserData(String userName, String userType, String password) 
 
 
 //user name repetiotion in the same file 
- @Override
+ //@Override
     public boolean checkUserName(String userName)
     {
             for (Cashier  c : CashiersDataList) 
@@ -215,9 +213,79 @@ public void signUp()
     
     
     }
-    
-    
-    
-    
-    
-    
+public void createCart() {
+         try
+           {
+             File CartDataFile=new File (CartFilePath);
+             if(CartDataFile.createNewFile())
+             {
+             System.out.println("File created succefully!");
+             
+             }
+             else 
+             {
+               System.out.println("File already exists");             
+             }
+         }
+         catch(IOException e)
+         {
+         System.out.println("File is not created"+e.getMessage());
+         }
+        
+    }
+
+   
+    product p = new product(); 
+    public ArrayList<product> AllProducts = p.getProductsDataList();
+    public void addProductToCart( product ProductName) { 
+          
+          for(product p: p.getProductsDataList()){
+             if(ProductName.equals(p.productName)){
+                 cartProducts.add(ProductName);
+             }
+             else{
+             System.out.println("Product Not Found ");
+             }
+          }
+    }
+
+    public void removeProductFromCart(String productName) {
+         for(product p: p.getProductsDataList()){
+             if(productName.equals(p.productName)){
+                 cartProducts.remove(p);
+             }
+             else{
+             System.out.println("Product Not Found ");
+             }
+          }
+     
+    }
+//    public void calculatePayment() {
+//        
+//        Path cartFilePath = Path.of(userName + "Cart");
+//        try {
+//            String cartContent = Files.readString(cartFilePath);
+//            int totalProducts = cartContent.length();
+//            System.out.println("Total products in the cart: " + totalProducts);
+//            
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public void deleteCart() {
+         cartProducts.clear();
+    }
+
+    public void displayCarts() {
+        if (cartProducts.isEmpty()) {
+            System.out.println("The cart is empty.");
+        } else {
+            System.out.println("Products in the cart:");
+            for (product p : cartProducts) {
+                System.out.println("- " + p.productName);
+            }
+        }
+    }    
+}
+
