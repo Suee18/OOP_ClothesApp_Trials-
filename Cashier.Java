@@ -235,13 +235,11 @@ public void createCart() {
     }
 
    
-    product p = new product(); 
-    public ArrayList<product> AllProducts = p.getProductsDataList();
-    public void addProductToCart( product ProductName) { 
-          
-          for(product p: p.getProductsDataList()){
-             if(ProductName.equals(p.productName)){
-                 cartProducts.add(ProductName);
+   public ArrayList<product> AllProducts=product.getProductsDataList() ;
+    public void addProductToCart( String ProductName) { 
+          for(product p1 : AllProducts){
+             if(p1.productName.equals(ProductName)){
+                 cartProducts.add(p1);
              }
              else{
              System.out.println("Product Not Found ");
@@ -249,10 +247,10 @@ public void createCart() {
           }
     }
 
-    public void removeProductFromCart(String productName) {
-         for(product p: p.getProductsDataList()){
-             if(productName.equals(p.productName)){
-                 cartProducts.remove(p);
+    public void removeProductFromCart(product ProductName) {
+         for(product p2:AllProducts){
+             if(ProductName.productName.equals(p2.productName)){
+                 cartProducts.remove(p2);
              }
              else{
              System.out.println("Product Not Found ");
@@ -278,6 +276,9 @@ public void createCart() {
     }
 
     public void displayCarts() {
+        if (cartProducts == null) {
+            cartProducts = new ArrayList<>(); 
+        }
         if (cartProducts.isEmpty()) {
             System.out.println("The cart is empty.");
         } else {
@@ -288,4 +289,3 @@ public void createCart() {
         }
     }    
 }
-
